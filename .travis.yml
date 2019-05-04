@@ -12,6 +12,7 @@ install:
 script:
   - pytest src/test_*.py --cov=handler --cov-fail-under=100
   - pycodestyle src/*py --ignore=E501
+  - aws configure --region=us-east-1
   - aws cloudformation validate-template --template-body file://cf.yaml
 after_success:
   - coveralls
