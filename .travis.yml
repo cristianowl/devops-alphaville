@@ -12,7 +12,6 @@ install:
 script:
   - pytest src/test_*.py --cov=handler --cov-fail-under=100
   - pycodestyle src/*py --ignore=E501
-  - aws configure --region=us-east-1
   - aws cloudformation validate-template --template-body file://cf.yaml
 after_success:
   - coveralls
@@ -21,6 +20,7 @@ deploy:
   provider: script
   script: aws cloudformation deploy --template-file out.yaml --stack-name devops-alphaville --capabilities CAPABILITY_IAM
   skip_cleanup: true
+  region: us-east-1:
   on:
     all_branches: true
     python: "3.6"
